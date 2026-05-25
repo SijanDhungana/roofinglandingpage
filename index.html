@@ -842,20 +842,20 @@
       <form onsubmit="handleQuoteSubmit(event)">
         <div class="form-group">
           <label for="q-name">Your Name</label>
-          <input id="q-name" type="text" placeholder="John Smith" required />
+          <input id="q-name" name="name" type="text" placeholder="John Smith" required />
         </div>
         <div class="form-group">
           <label for="q-phone">Phone Number</label>
-          <input id="q-phone" type="tel" placeholder="(519) 555-0100" required />
+          <input id="q-phone" name="phone" type="tel" placeholder="(343) 555-0100" required />
         </div>
         <div class="form-group">
           <label for="q-email">Email <span class="opt">(optional)</span></label>
-          <input id="q-email" type="email" placeholder="john@example.com" />
+          <input id="q-email" name="email" type="email" placeholder="john@example.com" />
         </div>
         <div class="form-group">
           <label for="q-service">Service Needed <span class="opt">(optional)</span></label>
           <div class="select-wrap">
-            <select id="q-service">
+            <select id="q-service" name="service">
               <option value="" disabled selected>Select a service…</option>
               <option>Roof Replacement</option>
               <option>Emergency Leak Repair</option>
@@ -1241,24 +1241,24 @@
           <div class="form-row">
             <div class="form-group">
               <label for="c-first">First Name</label>
-              <input id="c-first" type="text" placeholder="John" required />
+              <input id="c-first" name="first_name" type="text" placeholder="John" required />
             </div>
             <div class="form-group">
               <label for="c-last">Last Name</label>
-              <input id="c-last" type="text" placeholder="Smith" required />
+              <input id="c-last" name="last_name" type="text" placeholder="Smith" required />
             </div>
           </div>
           <div class="form-group">
             <label for="c-phone">Phone Number</label>
-            <input id="c-phone" type="tel" placeholder="(519) 555-0100" required />
+            <input id="c-phone" name="phone" type="tel" placeholder="(343) 555-0100" required />
           </div>
           <div class="form-group">
             <label for="c-email">Email <span class="opt" style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
-            <input id="c-email" type="email" placeholder="john@example.com" />
+            <input id="c-email" name="email" type="email" placeholder="john@example.com" />
           </div>
           <div class="form-group">
             <label for="c-message">Tell us about your project</label>
-            <textarea id="c-message" placeholder="e.g. I need a full roof replacement on a 1,800 sq ft home in London…"></textarea>
+            <textarea id="c-message" name="message" placeholder="e.g. I need a full roof replacement on a 1,800 sq ft home in the GTA…"></textarea>
           </div>
           <button type="submit" class="btn-submit">Send My Request</button>
         </form>
@@ -1288,35 +1288,63 @@
 </footer>
 
 <script>
+  // ── Replace with your Formspree form ID after signing up at formspree.io ──
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+
+  async function submitToFormspree(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.btn-submit');
+    const originalText = btn.textContent;
+
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        btn.textContent = 'Request Sent!';
+        btn.style.background = '#22c55e';
+        form.reset();
+      } else {
+        btn.textContent = 'Error — Try Again';
+        btn.style.background = '#ef4444';
+        btn.disabled = false;
+        setTimeout(() => {
+          btn.textContent = originalText;
+          btn.style.background = '';
+        }, 3000);
+      }
+    } catch {
+      btn.textContent = 'Error — Try Again';
+      btn.style.background = '#ef4444';
+      btn.disabled = false;
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 3000);
+    }
+  }
+
+  function handleQuoteSubmit(e) { submitToFormspree(e); }
+  function handleContactSubmit(e) { submitToFormspree(e); }
+
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
-
     document.querySelectorAll('.faq-question.open').forEach(q => {
       q.classList.remove('open');
       q.nextElementSibling.classList.remove('open');
     });
-
     if (!isOpen) {
       btn.classList.add('open');
       answer.classList.add('open');
     }
-  }
-
-  function handleQuoteSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.btn-submit');
-    btn.textContent = 'Request Sent!';
-    btn.style.background = '#22c55e';
-    btn.disabled = true;
-  }
-
-  function handleContactSubmit(e) {
-    e.preventDefault();
-    const btn = e.target.querySelector('.btn-submit');
-    btn.textContent = 'Request Sent!';
-    btn.style.background = '#22c55e';
-    btn.disabled = true;
   }
 
   const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
