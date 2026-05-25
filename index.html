@@ -777,6 +777,40 @@
 
     .footer-copy { font-size: 12px; width: 100%; text-align: center; margin-top: 8px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08); }
 
+    /* ── FORMSPREE STATES ── */
+    [data-fs-success] {
+      display: none;
+      padding: 12px 16px;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      color: #166534;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    [data-fs-error]:not(:empty) {
+      padding: 10px 14px;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      color: #991b1b;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    span[data-fs-error]:not(:empty) {
+      display: block;
+      padding: 0;
+      background: none;
+      border: none;
+      border-radius: 0;
+      color: #ef4444;
+      font-size: 12px;
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       nav { padding: 0 20px; }
@@ -839,23 +873,28 @@
         Now Booking for Spring &amp; Summer 2026
       </div>
       <h2>Get My Free Quote</h2>
-      <form onsubmit="handleQuoteSubmit(event)">
+      <div data-fs-success>Thanks! We'll be in touch shortly.</div>
+      <div data-fs-error></div>
+      <form id="quote-form">
         <div class="form-group">
           <label for="q-name">Your Name</label>
-          <input id="q-name" name="name" type="text" placeholder="John Smith" required />
+          <input id="q-name" name="name" type="text" placeholder="John Smith" required data-fs-field />
+          <span data-fs-error="name"></span>
         </div>
         <div class="form-group">
           <label for="q-phone">Phone Number</label>
-          <input id="q-phone" name="phone" type="tel" placeholder="(343) 555-0100" required />
+          <input id="q-phone" name="phone" type="tel" placeholder="(343) 555-0100" required data-fs-field />
+          <span data-fs-error="phone"></span>
         </div>
         <div class="form-group">
           <label for="q-email">Email <span class="opt">(optional)</span></label>
-          <input id="q-email" name="email" type="email" placeholder="john@example.com" />
+          <input id="q-email" name="email" type="email" placeholder="john@example.com" data-fs-field />
+          <span data-fs-error="email"></span>
         </div>
         <div class="form-group">
           <label for="q-service">Service Needed <span class="opt">(optional)</span></label>
           <div class="select-wrap">
-            <select id="q-service" name="service">
+            <select id="q-service" name="service" data-fs-field>
               <option value="" disabled selected>Select a service…</option>
               <option>Roof Replacement</option>
               <option>Emergency Leak Repair</option>
@@ -868,7 +907,7 @@
             </select>
           </div>
         </div>
-        <button type="submit" class="btn-submit">Get My Free Quote</button>
+        <button type="submit" class="btn-submit" data-fs-submit-btn>Get My Free Quote</button>
         <p class="form-note">Free, no-obligation quote &middot; Fast response</p>
       </form>
     </div>
@@ -1237,30 +1276,37 @@
 
       <div class="contact-form">
         <h3>Request a Free Quote</h3>
-        <form onsubmit="handleContactSubmit(event)">
+        <div data-fs-success>Thanks! We'll be in touch within one business day.</div>
+        <div data-fs-error></div>
+        <form id="contact-form">
           <div class="form-row">
             <div class="form-group">
               <label for="c-first">First Name</label>
-              <input id="c-first" name="first_name" type="text" placeholder="John" required />
+              <input id="c-first" name="first_name" type="text" placeholder="John" required data-fs-field />
+              <span data-fs-error="first_name"></span>
             </div>
             <div class="form-group">
               <label for="c-last">Last Name</label>
-              <input id="c-last" name="last_name" type="text" placeholder="Smith" required />
+              <input id="c-last" name="last_name" type="text" placeholder="Smith" required data-fs-field />
+              <span data-fs-error="last_name"></span>
             </div>
           </div>
           <div class="form-group">
             <label for="c-phone">Phone Number</label>
-            <input id="c-phone" name="phone" type="tel" placeholder="(343) 555-0100" required />
+            <input id="c-phone" name="phone" type="tel" placeholder="(343) 555-0100" required data-fs-field />
+            <span data-fs-error="phone"></span>
           </div>
           <div class="form-group">
             <label for="c-email">Email <span class="opt" style="color:var(--text-muted);font-weight:400;">(optional)</span></label>
-            <input id="c-email" name="email" type="email" placeholder="john@example.com" />
+            <input id="c-email" name="email" type="email" placeholder="john@example.com" data-fs-field />
+            <span data-fs-error="email"></span>
           </div>
           <div class="form-group">
             <label for="c-message">Tell us about your project</label>
-            <textarea id="c-message" name="message" placeholder="e.g. I need a full roof replacement on a 1,800 sq ft home in the GTA…"></textarea>
+            <textarea id="c-message" name="message" placeholder="e.g. I need a full roof replacement on a 1,800 sq ft home in the GTA…" data-fs-field></textarea>
+            <span data-fs-error="message"></span>
           </div>
-          <button type="submit" class="btn-submit">Send My Request</button>
+          <button type="submit" class="btn-submit" data-fs-submit-btn>Send My Request</button>
         </form>
       </div>
     </div>
@@ -1288,51 +1334,9 @@
 </footer>
 
 <script>
-  // ── Replace with your Formspree form ID after signing up at formspree.io ──
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-
-  async function submitToFormspree(e) {
-    e.preventDefault();
-    const form = e.target;
-    const btn = form.querySelector('.btn-submit');
-    const originalText = btn.textContent;
-
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: new FormData(form),
-        headers: { 'Accept': 'application/json' }
-      });
-
-      if (res.ok) {
-        btn.textContent = 'Request Sent!';
-        btn.style.background = '#22c55e';
-        form.reset();
-      } else {
-        btn.textContent = 'Error — Try Again';
-        btn.style.background = '#ef4444';
-        btn.disabled = false;
-        setTimeout(() => {
-          btn.textContent = originalText;
-          btn.style.background = '';
-        }, 3000);
-      }
-    } catch {
-      btn.textContent = 'Error — Try Again';
-      btn.style.background = '#ef4444';
-      btn.disabled = false;
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.style.background = '';
-      }, 3000);
-    }
-  }
-
-  function handleQuoteSubmit(e) { submitToFormspree(e); }
-  function handleContactSubmit(e) { submitToFormspree(e); }
+  window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+  formspree('initForm', { formElement: '#quote-form',   formId: 'xkoevvqo' });
+  formspree('initForm', { formElement: '#contact-form', formId: 'xkoevvqo' });
 
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
@@ -1361,5 +1365,6 @@
   });
 </script>
 
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </body>
 </html>
