@@ -508,11 +508,50 @@
     }
     .google-rating .stars { color: #fbbf24; }
 
-    .reviews-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+    /* ── REVIEWS CAROUSEL ── */
+    .reviews-carousel-wrap {
+      position: relative;
+      margin-top: 40px;
     }
+
+    .reviews-overflow {
+      overflow: hidden;
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 20px;
+      transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: transform;
+    }
+
+    .review-card {
+      flex: 0 0 calc(50% - 10px);
+      min-width: 0;
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px; height: 48px;
+      background: var(--navy-dark);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      transition: background 0.2s, opacity 0.2s;
+      flex-shrink: 0;
+    }
+    .carousel-btn:hover { background: var(--navy); }
+    .carousel-btn:disabled { opacity: 0.25; pointer-events: none; }
+    .carousel-btn svg { width: 20px; height: 20px; stroke: var(--white); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .carousel-prev { left: -28px; }
+    .carousel-next { right: -28px; }
 
     .review-card {
       background: var(--white);
@@ -932,7 +971,10 @@
         font-weight: 700;
       }
       .btn-hero-quote:hover { background: rgba(255,255,255,0.92); }
-      .before-after-grid, .reviews-grid, .service-cards { grid-template-columns: 1fr; }
+      .before-after-grid, .service-cards { grid-template-columns: 1fr; }
+      .review-card { flex: 0 0 calc(85%); }
+      .carousel-prev { left: 0; }
+      .carousel-next { right: 0; }
       .services-layout, .about-layout, .faq-layout, .contact-layout { grid-template-columns: 1fr; }
       .section { padding: 50px 20px; }
       footer { padding: 30px 20px; flex-direction: column; align-items: flex-start; }
@@ -1189,7 +1231,12 @@
       </div>
     </div>
 
-    <div class="reviews-grid">
+    <div class="reviews-carousel-wrap">
+      <button class="carousel-btn carousel-prev" id="rev-prev" aria-label="Previous review">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
+      <div class="reviews-overflow">
+      <div class="reviews-track" id="rev-track">
 
       <div class="review-card">
         <div class="reviewer">
@@ -1267,7 +1314,12 @@
         <p class="review-body">Had a new roof installed as it was leaking really badly. The guys done an amazing job — roof looks really good and has changed the look of my property. Would definitely recommend.</p>
       </div>
 
-    </div>
+      </div><!-- /reviews-track -->
+      </div><!-- /reviews-overflow -->
+      <button class="carousel-btn carousel-next" id="rev-next" aria-label="Next review">
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div><!-- /reviews-carousel-wrap -->
 
     <a href="#" class="reviews-cta">
       <img src="googlelogo.png" class="g-logo" alt="Google" />
@@ -1704,6 +1756,47 @@
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
   });
+
+  // ── REVIEWS CAROUSEL ──
+  (function() {
+    var track   = document.getElementById('rev-track');
+    var prevBtn = document.getElementById('rev-prev');
+    var nextBtn = document.getElementById('rev-next');
+    if (!track) return;
+
+    var idx = 0;
+
+    function perView() { return window.innerWidth <= 960 ? 1 : 2; }
+
+    function maxIdx() {
+      return Math.max(0, track.children.length - perView());
+    }
+
+    function update() {
+      var cardW = track.children[0].getBoundingClientRect().width;
+      var gap   = 20;
+      track.style.transform = 'translateX(-' + idx * (cardW + gap) + 'px)';
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx >= maxIdx();
+    }
+
+    prevBtn.addEventListener('click', function() { if (idx > 0) { idx--; update(); } });
+    nextBtn.addEventListener('click', function() { if (idx < maxIdx()) { idx++; update(); } });
+
+    // Touch swipe
+    var swipeStartX = 0;
+    track.addEventListener('touchstart', function(e) { swipeStartX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var diff = swipeStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0 && idx < maxIdx()) { idx++; update(); }
+        else if (diff < 0 && idx > 0)  { idx--; update(); }
+      }
+    });
+
+    window.addEventListener('resize', function() { idx = Math.min(idx, maxIdx()); update(); });
+    update();
+  })();
 
   // Show mobile sticky bar only after scrolling past the hero
   var mobileBar = document.querySelector('.mobile-cta-bar');
