@@ -892,28 +892,31 @@
 
       /* ── HERO MOBILE ── */
       .hero { min-height: 100vh; min-height: 100svh; }
-      .hero-bg::after { background: rgba(10,20,35,0.60); }
+      .hero-bg::after { background: rgba(10,20,35,0.62); }
       .hero-inner {
         flex-direction: column;
-        align-items: stretch;
-        padding: 52px 24px 40px;
+        align-items: center;
+        padding: 56px 24px 48px;
         min-height: 100vh;
         min-height: 100svh;
         gap: 0;
+        justify-content: center;
       }
       .hero-copy {
         max-width: 100%;
         display: flex;
         flex-direction: column;
-        flex: 1;
+        align-items: center;
+        text-align: center;
       }
-      .hero-areas { flex: 1; margin-bottom: 0; padding-bottom: 0; }
+      .hero-rating { justify-content: center; }
+      .hero-areas { margin-bottom: 0; }
       .hero-cta-wrap {
         flex-direction: column;
         gap: 12px;
         width: 100%;
-        margin-top: auto;
-        padding-top: 36px;
+        margin-top: 32px;
+        padding-top: 0;
       }
       .btn-hero {
         width: 100%;
@@ -947,6 +950,15 @@
         padding-bottom: calc(12px + env(safe-area-inset-bottom));
         gap: 10px;
         box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+        transform: translateY(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.3s ease;
+      }
+      .mobile-cta-bar.visible {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
       }
 
       .mobile-cta-bar .mcta-call,
@@ -1676,6 +1688,18 @@
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
   });
+
+  // Show mobile sticky bar only after scrolling past the hero
+  var mobileBar = document.querySelector('.mobile-cta-bar');
+  if (mobileBar) {
+    var heroEl = document.querySelector('.hero');
+    function updateBar() {
+      var threshold = heroEl ? heroEl.offsetHeight * 0.75 : window.innerHeight * 0.75;
+      mobileBar.classList.toggle('visible', window.scrollY > threshold);
+    }
+    window.addEventListener('scroll', updateBar, { passive: true });
+    updateBar();
+  }
 </script>
 </body>
 </html>
