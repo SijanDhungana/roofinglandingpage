@@ -1338,6 +1338,20 @@
   formspree('initForm', { formElement: '#quote-form',   formId: 'xkoevvqo' });
   formspree('initForm', { formElement: '#contact-form', formId: 'xkoevvqo' });
 
+  // Fire Google Ads conversion when either form submits successfully.
+  // Replace CONVERSION_LABEL with the label from Google Ads → Goals → Conversions.
+  document.querySelectorAll('[data-fs-success]').forEach(function(el) {
+    var fired = false;
+    new MutationObserver(function() {
+      if (!fired && window.getComputedStyle(el).display !== 'none') {
+        fired = true;
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', { send_to: 'AW-18184327734/CONVERSION_LABEL' });
+        }
+      }
+    }).observe(el, { attributes: true, attributeFilter: ['style', 'class', 'hidden'] });
+  });
+
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
     const isOpen = btn.classList.contains('open');
