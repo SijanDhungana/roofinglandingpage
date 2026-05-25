@@ -1037,14 +1037,19 @@
       </div>
 
       <div class="ba-card">
-        <div class="ba-label">Gutter Installation</div>
-        <div class="ba-images">
-          <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400&q=75" alt="Old gutters before installation" loading="lazy" />
-          <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=400&q=75" alt="New seamless gutters installed" loading="lazy" />
+        <div class="ba-label">Shingle Roofing</div>
+        <div class="ba-slider" id="shingle-slider">
+          <img class="ba-slider-before" src="roofing2v1.jpg" alt="Shingle roofing before" loading="lazy" />
+          <img class="ba-slider-after" src="roofing2v2.jpg" alt="Shingle roofing after" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
-          <div class="ba-divider"></div>
-          <div class="ba-arrow">&#8644;</div>
+          <div class="ba-slider-line"></div>
+          <div class="ba-slider-btn">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 12H16M8 12L11 9M8 12L11 15M16 12L13 9M16 12L13 15"/>
+            </svg>
+          </div>
+          <div class="ba-drag-hint">Drag to compare</div>
         </div>
       </div>
 
@@ -1529,6 +1534,7 @@
 
   initSlider('roof-slider');
   initSlider('flat-slider');
+  initSlider('shingle-slider');
 
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
