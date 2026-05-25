@@ -397,6 +397,94 @@
       color: var(--text-muted);
     }
 
+    /* ── BEFORE/AFTER DRAG SLIDER ── */
+    .ba-slider {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      height: 220px;
+      cursor: ew-resize;
+      user-select: none;
+      touch-action: pan-y;
+    }
+
+    .ba-slider-before,
+    .ba-slider-after {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+      draggable: false;
+    }
+
+    .ba-slider-after {
+      clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+    }
+
+    .ba-slider-line {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 3px;
+      background: var(--white);
+      transform: translateX(-50%);
+      z-index: 4;
+      box-shadow: 0 0 8px rgba(0,0,0,0.35);
+    }
+
+    .ba-slider-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 44px; height: 44px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 5;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      transition: transform 0.15s, background 0.15s;
+    }
+    .ba-slider:active .ba-slider-btn,
+    .ba-slider.dragging .ba-slider-btn {
+      transform: translate(-50%, -50%) scale(1.12);
+      background: var(--gold-hover);
+    }
+    .ba-slider-btn svg {
+      width: 22px; height: 22px;
+      fill: none;
+      stroke: var(--white);
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .ba-drag-hint {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.55);
+      color: var(--white);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      z-index: 6;
+      white-space: nowrap;
+      transition: opacity 0.4s;
+      pointer-events: none;
+    }
+    .ba-slider.dragging .ba-drag-hint,
+    .ba-slider.interacted .ba-drag-hint { opacity: 0; }
+
     /* ── REVIEWS ── */
     .reviews-section { background: var(--gray-bg); }
 
@@ -916,13 +1004,18 @@
 
       <div class="ba-card">
         <div class="ba-label">Roof Replacement</div>
-        <div class="ba-images">
-          <img src="roofing1v1.jpg" alt="Worn shingles before roof replacement" loading="lazy" />
-          <img src="roofing1v2.jpg" alt="New shingles after roof replacement" loading="lazy" />
+        <div class="ba-slider" id="roof-slider">
+          <img class="ba-slider-before" src="roofing1v1.jpg" alt="Before roof replacement" loading="lazy" />
+          <img class="ba-slider-after" src="roofing1v2.jpg" alt="After roof replacement" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
-          <div class="ba-divider"></div>
-          <div class="ba-arrow">&#8644;</div>
+          <div class="ba-slider-line" id="roof-handle-line"></div>
+          <div class="ba-slider-btn" id="roof-handle-btn">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 12H16M8 12L11 9M8 12L11 15M16 12L13 9M16 12L13 15"/>
+            </svg>
+          </div>
+          <div class="ba-drag-hint">Drag to compare</div>
         </div>
       </div>
 
@@ -1340,6 +1433,55 @@
 
   submitForm('quote-form', 'quote-error');
   submitForm('contact-form', 'contact-error');
+
+  // ── BEFORE/AFTER DRAG SLIDER ──
+  (function() {
+    var slider   = document.getElementById('roof-slider');
+    var afterImg = slider.querySelector('.ba-slider-after');
+    var line     = document.getElementById('roof-handle-line');
+    var btn      = document.getElementById('roof-handle-btn');
+
+    function setPos(pct) {
+      pct = Math.max(2, Math.min(98, pct));
+      afterImg.style.clipPath = 'polygon(0 0,' + pct + '% 0,' + pct + '% 100%,0 100%)';
+      line.style.left = pct + '%';
+      btn.style.left  = pct + '%';
+    }
+
+    function getPct(clientX) {
+      var rect = slider.getBoundingClientRect();
+      return (clientX - rect.left) / rect.width * 100;
+    }
+
+    function onMove(clientX) { setPos(getPct(clientX)); }
+
+    slider.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      slider.classList.add('dragging', 'interacted');
+      onMove(e.clientX);
+      function move(e) { onMove(e.clientX); }
+      function up() {
+        slider.classList.remove('dragging');
+        document.removeEventListener('mousemove', move);
+        document.removeEventListener('mouseup', up);
+      }
+      document.addEventListener('mousemove', move);
+      document.addEventListener('mouseup', up);
+    });
+
+    slider.addEventListener('touchstart', function(e) {
+      slider.classList.add('dragging', 'interacted');
+      onMove(e.touches[0].clientX);
+      function move(e) { onMove(e.touches[0].clientX); }
+      function end() {
+        slider.classList.remove('dragging');
+        slider.removeEventListener('touchmove', move);
+        slider.removeEventListener('touchend', end);
+      }
+      slider.addEventListener('touchmove', move, { passive: true });
+      slider.addEventListener('touchend', end);
+    }, { passive: true });
+  })();
 
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
