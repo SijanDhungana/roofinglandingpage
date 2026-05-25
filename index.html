@@ -1009,8 +1009,8 @@
           <img class="ba-slider-after" src="roofing1v1.jpg" alt="After roof replacement" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
-          <div class="ba-slider-line" id="roof-handle-line"></div>
-          <div class="ba-slider-btn" id="roof-handle-btn">
+          <div class="ba-slider-line"></div>
+          <div class="ba-slider-btn">
             <svg viewBox="0 0 24 24">
               <path d="M8 12H16M8 12L11 9M8 12L11 15M16 12L13 9M16 12L13 15"/>
             </svg>
@@ -1021,13 +1021,18 @@
 
       <div class="ba-card">
         <div class="ba-label">Flat Roof</div>
-        <div class="ba-images">
-          <img src="roofing3v1.jpg" alt="Flat roof before repair" loading="lazy" />
-          <img src="roofing3v2.jpg" alt="Flat roof after repair" loading="lazy" />
+        <div class="ba-slider" id="flat-slider">
+          <img class="ba-slider-before" src="roofing3v1.jpg" alt="Flat roof before repair" loading="lazy" />
+          <img class="ba-slider-after" src="roofing3v2.jpg" alt="Flat roof after repair" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
-          <div class="ba-divider"></div>
-          <div class="ba-arrow">&#8644;</div>
+          <div class="ba-slider-line"></div>
+          <div class="ba-slider-btn">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 12H16M8 12L11 9M8 12L11 15M16 12L13 9M16 12L13 15"/>
+            </svg>
+          </div>
+          <div class="ba-drag-hint">Drag to compare</div>
         </div>
       </div>
 
@@ -1435,11 +1440,15 @@
   submitForm('contact-form', 'contact-error');
 
   // ── BEFORE/AFTER DRAG SLIDER ──
-  (function() {
-    var slider   = document.getElementById('roof-slider');
+  function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
+  function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
+
+  function initSlider(id) {
+    var slider   = document.getElementById(id);
+    if (!slider) return;
     var afterImg = slider.querySelector('.ba-slider-after');
-    var line     = document.getElementById('roof-handle-line');
-    var btn      = document.getElementById('roof-handle-btn');
+    var line     = slider.querySelector('.ba-slider-line');
+    var btn      = slider.querySelector('.ba-slider-btn');
     var pos = 50;
     var raf = null;
 
@@ -1454,9 +1463,6 @@
       var rect = slider.getBoundingClientRect();
       return (clientX - rect.left) / rect.width * 100;
     }
-
-    function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
-    function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
 
     function animateTo(from, to, duration, easing, onDone) {
       if (raf) cancelAnimationFrame(raf);
@@ -1481,7 +1487,6 @@
       });
     }
 
-    // Mouse drag
     slider.addEventListener('mousedown', function(e) {
       e.preventDefault();
       if (raf) cancelAnimationFrame(raf);
@@ -1498,7 +1503,6 @@
       document.addEventListener('mouseup', up);
     });
 
-    // Touch drag
     slider.addEventListener('touchstart', function(e) {
       if (raf) cancelAnimationFrame(raf);
       slider.classList.add('dragging', 'interacted');
@@ -1514,7 +1518,6 @@
       slider.addEventListener('touchend', end);
     }, { passive: true });
 
-    // Wiggle hint on first scroll into view
     var hintFired = false;
     new IntersectionObserver(function(entries) {
       if (!hintFired && entries[0].isIntersecting) {
@@ -1522,7 +1525,10 @@
         setTimeout(wiggle, 500);
       }
     }, { threshold: 0.6 }).observe(slider);
-  })();
+  }
+
+  initSlider('roof-slider');
+  initSlider('flat-slider');
 
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
