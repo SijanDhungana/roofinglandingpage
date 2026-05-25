@@ -1440,12 +1440,14 @@
     var afterImg = slider.querySelector('.ba-slider-after');
     var line     = document.getElementById('roof-handle-line');
     var btn      = document.getElementById('roof-handle-btn');
+    var pos = 50;
+    var raf = null;
 
     function setPos(pct) {
-      pct = Math.max(2, Math.min(98, pct));
-      afterImg.style.clipPath = 'polygon(0 0,' + pct + '% 0,' + pct + '% 100%,0 100%)';
-      line.style.left = pct + '%';
-      btn.style.left  = pct + '%';
+      pos = Math.max(2, Math.min(98, pct));
+      afterImg.style.clipPath = 'polygon(0 0,' + pos + '% 0,' + pos + '% 100%,0 100%)';
+      line.style.left = pos + '%';
+      btn.style.left  = pos + '%';
     }
 
     function getPct(clientX) {
@@ -1453,15 +1455,42 @@
       return (clientX - rect.left) / rect.width * 100;
     }
 
-    function onMove(clientX) { setPos(getPct(clientX)); }
+    function easeOut(t)   { return 1 - Math.pow(1 - t, 3); }
+    function easeInOut(t) { return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2; }
 
+    function animateTo(from, to, duration, easing, onDone) {
+      if (raf) cancelAnimationFrame(raf);
+      var start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        var t = Math.min(1, (ts - start) / duration);
+        setPos(from + (to - from) * easing(t));
+        if (t < 1) { raf = requestAnimationFrame(step); }
+        else { raf = null; if (onDone) onDone(); }
+      }
+      raf = requestAnimationFrame(step);
+    }
+
+    function snapBack() { animateTo(pos, 50, 600, easeOut); }
+
+    function wiggle() {
+      animateTo(50, 32, 380, easeInOut, function() {
+        animateTo(32, 68, 520, easeInOut, function() {
+          animateTo(68, 50, 440, easeOut);
+        });
+      });
+    }
+
+    // Mouse drag
     slider.addEventListener('mousedown', function(e) {
       e.preventDefault();
+      if (raf) cancelAnimationFrame(raf);
       slider.classList.add('dragging', 'interacted');
-      onMove(e.clientX);
-      function move(e) { onMove(e.clientX); }
+      setPos(getPct(e.clientX));
+      function move(e) { setPos(getPct(e.clientX)); }
       function up() {
         slider.classList.remove('dragging');
+        snapBack();
         document.removeEventListener('mousemove', move);
         document.removeEventListener('mouseup', up);
       }
@@ -1469,18 +1498,30 @@
       document.addEventListener('mouseup', up);
     });
 
+    // Touch drag
     slider.addEventListener('touchstart', function(e) {
+      if (raf) cancelAnimationFrame(raf);
       slider.classList.add('dragging', 'interacted');
-      onMove(e.touches[0].clientX);
-      function move(e) { onMove(e.touches[0].clientX); }
+      setPos(getPct(e.touches[0].clientX));
+      function move(e) { setPos(getPct(e.touches[0].clientX)); }
       function end() {
         slider.classList.remove('dragging');
+        snapBack();
         slider.removeEventListener('touchmove', move);
         slider.removeEventListener('touchend', end);
       }
       slider.addEventListener('touchmove', move, { passive: true });
       slider.addEventListener('touchend', end);
     }, { passive: true });
+
+    // Wiggle hint on first scroll into view
+    var hintFired = false;
+    new IntersectionObserver(function(entries) {
+      if (!hintFired && entries[0].isIntersecting) {
+        hintFired = true;
+        setTimeout(wiggle, 500);
+      }
+    }, { threshold: 0.6 }).observe(slider);
   })();
 
   function toggleFaq(btn) {
