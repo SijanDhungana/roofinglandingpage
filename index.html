@@ -23,9 +23,15 @@
     })(window, document, "clarity", "script", "wwj5nvysu1");
   </script>
 
+  <!-- Preload LCP + critical assets -->
+  <link rel="preload" as="image" href="Roofing-Toronto-2.jpg" fetchpriority="high" />
+  <link rel="preload" as="image" href="Logo-67.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Non-blocking font load — eliminates render-blocking resource -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" /></noscript>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1057,7 +1063,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a href="#" class="logo">
-    <img src="Logo-67.png" alt="Optima Roofing &amp; Construction" class="logo-img" />
+    <img src="Logo-67.png" alt="Optima Roofing &amp; Construction" class="logo-img" fetchpriority="high" />
   </a>
 
   <ul class="nav-links">
@@ -1736,9 +1742,12 @@
     }, { threshold: 0.6 }).observe(slider);
   }
 
-  initSlider('roof-slider');
-  initSlider('flat-slider');
-  initSlider('shingle-slider');
+  var _ric = window.requestIdleCallback || function(fn){ setTimeout(fn, 1); };
+  _ric(function() {
+    initSlider('roof-slider');
+    initSlider('flat-slider');
+    initSlider('shingle-slider');
+  });
 
   function toggleFaq(btn) {
     const answer = btn.nextElementSibling;
@@ -1753,8 +1762,9 @@
     }
   }
 
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  const sections = document.querySelectorAll('section[id]');
+  _ric(function() {
+  var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  var sections = document.querySelectorAll('section[id]');
 
   window.addEventListener('scroll', () => {
     let current = '';
@@ -1767,7 +1777,7 @@
   });
 
   // ── REVIEWS CAROUSEL ──
-  (function() {
+  _ric(function() {
     var track   = document.getElementById('rev-track');
     var prevBtn = document.getElementById('rev-prev');
     var nextBtn = document.getElementById('rev-next');
@@ -1805,7 +1815,9 @@
 
     window.addEventListener('resize', function() { idx = Math.min(idx, maxIdx()); update(); });
     update();
-  })();
+  });  // end carousel _ric
+
+  });  // end nav _ric
 
   // Show mobile sticky bar only after scrolling past the hero
   var mobileBar = document.querySelector('.mobile-cta-bar');
