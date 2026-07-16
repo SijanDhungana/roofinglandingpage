@@ -14,18 +14,20 @@
     gtag('config', 'AW-18184327734');
   </script>
 
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "wwj5nvysu1");
+  <!-- Microsoft Clarity — deferred until after load -->
+  <script>
+    window.addEventListener('load', function() {
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "wwj5nvysu1");
+    });
   </script>
 
   <!-- Preload LCP + critical assets -->
-  <link rel="preload" as="image" href="Roofing-Toronto-2.jpg" fetchpriority="high" />
-  <link rel="preload" as="image" href="Logo-67.png" />
+  <link rel="preload" as="image" href="Roofing-Toronto-2.webp" fetchpriority="high" />
+  <link rel="preload" as="image" href="Logo-67.webp" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -126,7 +128,14 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('Roofing-Toronto-2.jpg') center/cover no-repeat;
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
     }
 
     .hero-bg::after {
@@ -1063,7 +1072,7 @@
 <!-- ── NAV ── -->
 <nav>
   <a href="#" class="logo">
-    <img src="Logo-67.png" alt="Optima Roofing &amp; Construction" class="logo-img" fetchpriority="high" />
+    <img src="Logo-67.webp" alt="Optima Roofing &amp; Construction" class="logo-img" fetchpriority="high" />
   </a>
 
   <ul class="nav-links">
@@ -1075,28 +1084,30 @@
     <li><a href="#faq">FAQ</a></li>
   </ul>
 
-  <a href="tel:3433362585" class="btn-call">
+  <a href="tel:6473702476" class="btn-call">
     <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-    Call (343) 336-2585
+    Call (647) 370-2476
   </a>
 </nav>
 
 <!-- ── HERO ── -->
 <section class="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg">
+    <img src="Roofing-Toronto-2.webp" alt="" class="hero-bg-img" fetchpriority="high" loading="eager" decoding="async" />
+  </div>
   <div class="hero-inner">
     <div class="hero-copy">
       <div class="hero-rating">
-        <img src="googlelogo.png" class="g-logo" alt="Google" />
+        <img src="googlelogo.webp" class="g-logo" alt="Google" />
         <span class="stars">★★★★★</span>
         <span>5.0 on Google</span>
       </div>
       <h1>Toronto Roof Replacement &amp; Repair Experts</h1>
       <p class="hero-areas">Licensed &amp; insured roofers serving Toronto.<br>Free inspection, same day response,<br>10-year warranty on every job.</p>
       <div class="hero-cta-wrap">
-        <a href="tel:3433362585" class="btn-hero">
+        <a href="tel:6473702476" class="btn-hero">
           <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-          Call (343) 336-2585
+          Call (647) 370-2476
         </a>
         <a href="#contact" class="btn-hero btn-hero-quote">
           Get My Free Quote
@@ -1177,8 +1188,8 @@
       <div class="ba-card">
         <div class="ba-label">Roof Replacement</div>
         <div class="ba-slider" id="roof-slider">
-          <img class="ba-slider-before" src="roofing1v2.jpg" alt="Before roof replacement" loading="lazy" />
-          <img class="ba-slider-after" src="roofing1v1.jpg" alt="After roof replacement" loading="lazy" />
+          <img class="ba-slider-before" src="roofing1v2.webp" alt="Before roof replacement" loading="lazy" />
+          <img class="ba-slider-after" src="roofing1v1.webp" alt="After roof replacement" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
           <div class="ba-slider-line"></div>
@@ -1194,8 +1205,8 @@
       <div class="ba-card">
         <div class="ba-label">Flat Roof</div>
         <div class="ba-slider" id="flat-slider">
-          <img class="ba-slider-before" src="roofing3v2.jpg" alt="Flat roof before repair" loading="lazy" />
-          <img class="ba-slider-after" src="roofing3v1.jpg" alt="Flat roof after repair" loading="lazy" />
+          <img class="ba-slider-before" src="roofing3v2.webp" alt="Flat roof before repair" loading="lazy" />
+          <img class="ba-slider-after" src="roofing3v1.webp" alt="Flat roof after repair" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
           <div class="ba-slider-line"></div>
@@ -1211,8 +1222,8 @@
       <div class="ba-card">
         <div class="ba-label">Shingle Roofing</div>
         <div class="ba-slider" id="shingle-slider">
-          <img class="ba-slider-before" src="roofing2v2.jpg" alt="Shingle roofing before" loading="lazy" />
-          <img class="ba-slider-after" src="roofing2v1.jpg" alt="Shingle roofing after" loading="lazy" />
+          <img class="ba-slider-before" src="roofing2v2.webp" alt="Shingle roofing before" loading="lazy" />
+          <img class="ba-slider-after" src="roofing2v1.webp" alt="Shingle roofing after" loading="lazy" />
           <span class="ba-tag before">BEFORE</span>
           <span class="ba-tag after">AFTER</span>
           <div class="ba-slider-line"></div>
@@ -1238,7 +1249,7 @@
         <h2 class="section-title">Real stories from<br>real homeowners.</h2>
         <p class="section-sub">Don't just take our word for it. Here's what your neighbours have to say.</p>
         <div class="google-rating">
-          <img src="googlelogo.png" class="g-logo" alt="Google" style="width:22px;height:22px;" />
+          <img src="googlelogo.webp" class="g-logo" alt="Google" style="width:22px;height:22px;" loading="lazy" />
           <span style="font-size:20px;">5.0</span>
           <span class="stars">★★★★★</span>
           <span style="font-size:14px;color:var(--text-muted);font-weight:400;">on Google</span>
@@ -1337,7 +1348,7 @@
     </div><!-- /reviews-carousel-wrap -->
 
     <a href="#" class="reviews-cta">
-      <img src="googlelogo.png" class="g-logo" alt="Google" />
+      <img src="googlelogo.webp" class="g-logo" alt="Google" />
       Read all reviews on Google &nbsp;→
     </a>
   </div>
@@ -1397,7 +1408,7 @@
   <div class="section-inner">
     <div class="about-layout">
       <div class="about-img">
-        <img src="joshimage.jpg" alt="Optima Roofing team on the job" loading="lazy" />
+        <img src="joshimage.webp" alt="Optima Roofing team on the job" loading="lazy" />
       </div>
       <div class="about-copy">
         <div class="section-tag">About Us</div>
@@ -1435,9 +1446,9 @@
         <h3>Still have questions?</h3>
         <p>We're happy to walk you through everything before you commit to anything. Give us a call — no pressure, no sales pitch.</p>
         <div class="faq-contact">
-          <a href="tel:3433362585">
+          <a href="tel:6473702476">
             <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-            (343) 336-2585
+            (647) 370-2476
           </a>
         </div>
       </div>
@@ -1523,7 +1534,7 @@
               <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
             </div>
             <div>
-              <strong>(343) 336-2585</strong>
+              <strong>(647) 370-2476</strong>
               <span>Mon–Fri 7am–6pm, Sat 8am–2pm</span>
             </div>
           </div>
@@ -1584,7 +1595,7 @@
 <!-- ── FOOTER ── -->
 <footer>
   <div class="footer-logo">
-    <img src="Logo-67.png" alt="Optima Roofing &amp; Construction" style="height:44px;width:auto;background:var(--white);border-radius:8px;padding:4px 8px;" />
+    <img src="Logo-67.webp" alt="Optima Roofing &amp; Construction" loading="lazy" style="height:44px;width:auto;background:var(--white);border-radius:8px;padding:4px 8px;" />
   </div>
 
   <div class="footer-links">
@@ -1603,7 +1614,7 @@
 
 <!-- ── MOBILE CTA BAR ── -->
 <div class="mobile-cta-bar">
-  <a href="tel:3433362585" class="mcta-call">
+  <a href="tel:6473702476" class="mcta-call">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
     Call Now
   </a>
