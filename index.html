@@ -939,6 +939,138 @@
       margin-bottom: 16px;
     }
 
+    /* ── NAV CTA ── */
+    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-cta-nav {
+      display: inline-flex; align-items: center;
+      background: var(--navy); color: var(--white);
+      text-decoration: none; padding: 12px 20px;
+      border-radius: 8px; font-size: 14px; font-weight: 700;
+      transition: background 0.2s; white-space: nowrap;
+    }
+    .btn-cta-nav:hover { background: var(--navy-dark); }
+
+    /* ── SERVICE CARDS WITH ICONS ── */
+    .svc-icon {
+      width: 48px; height: 48px;
+      background: var(--navy); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .svc-icon svg { width: 24px; height: 24px; fill: var(--gold-light); }
+    .svc-link {
+      display: inline-block; margin-top: 14px;
+      font-size: 13px; font-weight: 700;
+      color: var(--gold); text-decoration: none;
+    }
+    .svc-link:hover { color: var(--gold-hover); }
+
+    /* ── WHY CHOOSE US ── */
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 24px; margin-top: 48px;
+    }
+    .why-card {
+      background: var(--white); border-radius: var(--radius);
+      padding: 28px 24px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      border-top: 3px solid var(--gold);
+    }
+    .why-icon {
+      width: 48px; height: 48px;
+      background: var(--navy); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+    }
+    .why-icon svg { width: 24px; height: 24px; fill: var(--gold-light); }
+    .why-card h3 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .why-card p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── HOW IT WORKS ── */
+    .steps-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 40px; margin-top: 56px; position: relative;
+    }
+    .steps-row::before {
+      content: ''; position: absolute;
+      top: 36px; left: calc(16.66% + 16px); right: calc(16.66% + 16px);
+      height: 2px; background: var(--gold-light); opacity: 0.5;
+    }
+    .step-box { text-align: center; }
+    .step-num {
+      width: 72px; height: 72px;
+      background: var(--gold); color: var(--white);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; font-weight: 800;
+      margin: 0 auto 20px;
+      position: relative; z-index: 1;
+    }
+    .step-box h3 { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+    .step-box p { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── SERVICE AREA ── */
+    .area-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 12px; margin-top: 40px;
+    }
+    .area-item {
+      background: var(--white); border-radius: 8px;
+      padding: 14px 16px;
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; font-weight: 500;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+    }
+    .area-item svg { width: 14px; height: 14px; fill: var(--gold); flex-shrink: 0; }
+
+    /* ── FOOTER COLUMNS ── */
+    footer { flex-direction: column; gap: 0; padding: 48px 40px 24px; }
+    .footer-top {
+      display: grid; grid-template-columns: 1.4fr 1fr 1.4fr;
+      gap: 48px; width: 100%;
+      padding-bottom: 32px; margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand p {
+      font-size: 13px; color: rgba(255,255,255,0.5);
+      line-height: 1.7; margin-top: 14px; max-width: 240px;
+    }
+    .footer-col h4 {
+      font-size: 12px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.4); margin-bottom: 14px;
+    }
+    .footer-col-links { display: flex; flex-direction: column; gap: 8px; }
+    .footer-col-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 14px; transition: color 0.2s; }
+    .footer-col-links a:hover { color: var(--white); }
+    .footer-contact-list { display: flex; flex-direction: column; gap: 10px; }
+    .footer-contact-row {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px;
+    }
+    .footer-contact-row svg { width: 15px; height: 15px; fill: var(--gold-light); flex-shrink: 0; }
+    .footer-contact-row a { color: rgba(255,255,255,0.8); text-decoration: none; font-weight: 600; }
+    .footer-contact-row a:hover { color: var(--white); }
+    .footer-contact-row span { color: rgba(255,255,255,0.55); }
+    .btn-footer-cta {
+      display: inline-flex; align-items: center;
+      margin-top: 16px;
+      background: var(--gold); color: var(--white);
+      text-decoration: none; padding: 12px 20px;
+      border-radius: 8px; font-size: 14px; font-weight: 700;
+      transition: background 0.2s;
+    }
+    .btn-footer-cta:hover { background: var(--gold-hover); }
+    .footer-bottom {
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 12px;
+      width: 100%;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.35); }
+    .footer-bottom-links { display: flex; gap: 16px; }
+    .footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.4); text-decoration: none; }
+    .footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
+
     /* ── MOBILE CTA BAR ── */
     .mobile-cta-bar {
       display: none;
@@ -1000,8 +1132,14 @@
       .carousel-prev { left: 0; }
       .carousel-next { right: 0; }
       .services-layout, .about-layout, .faq-layout, .contact-layout { grid-template-columns: 1fr; }
+      .why-grid, .steps-row { grid-template-columns: 1fr; }
+      .steps-row::before { display: none; }
+      .area-grid { grid-template-columns: repeat(2, 1fr); }
+      .btn-cta-nav { display: none; }
       .section { padding: 50px 20px; }
-      footer { padding: 30px 20px; flex-direction: column; align-items: flex-start; }
+      footer { padding: 30px 20px; }
+      .footer-top { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; gap: 8px; }
 
       .mobile-cta-bar {
         display: flex;
@@ -1076,18 +1214,21 @@
   </a>
 
   <ul class="nav-links">
-    <li><a href="#work">Our Work</a></li>
-    <li><a href="#reviews">Reviews</a></li>
     <li><a href="#services">Services</a></li>
+    <li><a href="#work">Projects</a></li>
+    <li><a href="#reviews">Testimonials</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 
-  <a href="tel:6473702476" class="btn-call">
-    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
-    Call (647) 370-2476
-  </a>
+  <div class="nav-actions">
+    <a href="tel:6473702476" class="btn-call">
+      <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      (647) 370-2476
+    </a>
+    <a href="#contact" class="btn-cta-nav">Get Free Estimate</a>
+  </div>
 </nav>
 
 <!-- ── HERO ── -->
@@ -1172,8 +1313,14 @@
     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
     Licensed &amp; Bonded
   </div>
-  <span class="trust-logo owens">OWENS CORNING</span>
-  <span class="trust-logo certainteed">CertainTeed</span>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+    Since 2001
+  </div>
+  <div class="trust-item">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-5"/></svg>
+    5.0★ Google Rating
+  </div>
 </div>
 
 <!-- ── BEFORE & AFTER ── -->
@@ -1383,21 +1530,142 @@
     <div class="service-cards">
       <div class="svc-card">
         <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
           <h4>Roof Replacement</h4>
-          <p>Full tear-off and replacement using premium architectural shingles. Completed in as little as one day.</p>
+          <p>Full tear-off and replacement using premium architectural shingles. Most projects completed in a single day.</p>
+          <a href="#contact" class="svc-link">Get a Free Quote →</a>
         </div>
       </div>
       <div class="svc-card">
         <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2l2 7h7l-5.5 4 2 7L12 16l-5.5 4 2-7L3 9h7z"/></svg>
+          </div>
           <h4>Leak Repair</h4>
           <p>Emergency and non-emergency leak diagnosis and repair. We find the source — not just patch the symptom.</p>
+          <a href="#contact" class="svc-link">Get a Free Quote →</a>
         </div>
       </div>
       <div class="svc-card">
         <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="4" rx="1"/><path d="M4 7v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V7"/><line x1="12" y1="12" x2="12" y2="17"/></svg>
+          </div>
+          <h4>Flat &amp; Low-Slope Roofing</h4>
+          <p>Modified bitumen, TPO, and torch-on flat roof systems — installed to handle Ontario's harsh winters.</p>
+          <a href="#contact" class="svc-link">Get a Free Quote →</a>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12H2M5 12V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v5"/><path d="M4 12v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-5"/><line x1="12" y1="18" x2="12" y2="21"/></svg>
+          </div>
           <h4>Gutters &amp; Drainage</h4>
           <p>Seamless aluminum gutter installation, cleaning, and downspout re-routing to protect your foundation.</p>
+          <a href="#contact" class="svc-link">Get a Free Quote →</a>
         </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><path d="M2 20h20M4 20V8l8-6 8 6v12"/><path d="M9 20v-5h6v5"/></svg>
+          </div>
+          <h4>Soffit, Fascia &amp; Ventilation</h4>
+          <p>Proper attic ventilation and trim work extends roof life and prevents moisture buildup in your home.</p>
+          <a href="#contact" class="svc-link">Get a Free Quote →</a>
+        </div>
+      </div>
+      <div class="svc-card">
+        <div class="svc-card-body">
+          <div class="svc-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <h4>Skylights &amp; Chimney Flashing</h4>
+          <p>Prevent leaks at the most vulnerable points — proper flashing around skylights, chimneys, and vents.</p>
+          <a href="#contact" class="svc-link">Get a Free Quote →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY CHOOSE US ── -->
+<section class="section" id="why-us" style="background:var(--gray-bg);">
+  <div class="section-inner">
+    <div class="section-tag">Why Choose Optima</div>
+    <h2 class="section-title">Your Home Is in Good Hands</h2>
+    <p class="section-sub">We're not a franchise or a call centre. We're a local Toronto crew — and your roof is backed by our name and our warranty.</p>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg>
+        </div>
+        <h3>25+ Years of Experience</h3>
+        <p>In business since 2001 — we've handled every roof type, pitch, and challenge across Toronto and the GTA.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1l8 3v7c0 6-8 10-8 10S4 17 4 11V4l8-3z"/></svg>
+        </div>
+        <h3>Licensed &amp; Fully Insured</h3>
+        <p>We carry $5M liability insurance and WSIB coverage. Your home and our crew are fully protected on every job.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/></svg>
+        </div>
+        <h3>10-Year Workmanship Warranty</h3>
+        <p>Every replacement comes with a written 10-year warranty on our labour. If it leaks because of our work, we fix it. Period.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8a2 2 0 0 0-2 2v2h12V5a2 2 0 0 0-2-2z"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+        </div>
+        <h3>Transparent, Written Quotes</h3>
+        <p>Detailed quotes before we start. No line items appear after the job. The price you approve is the price you pay.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Same-Day Emergency Response</h3>
+        <p>Call us and you'll speak to a real person. For emergency leaks, we aim to be on-site within 2–4 hours — 7 days a week.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        </div>
+        <h3>Locally Owned &amp; Operated</h3>
+        <p>We live and work in the Toronto area. Every job we do is a reference for the next — our reputation depends on doing it right.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="section" id="how-it-works">
+  <div class="section-inner">
+    <div class="section-tag">The Process</div>
+    <h2 class="section-title">Simple. Fast. No Surprises.</h2>
+    <p class="section-sub">From your first call to project completion, here's exactly what to expect when you work with Optima.</p>
+    <div class="steps-row">
+      <div class="step-box">
+        <div class="step-num">1</div>
+        <h3>Request Your Free Estimate</h3>
+        <p>Call us or submit the form. A real person confirms your appointment — no automated runaround. Most homeowners hear from us within the hour.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">2</div>
+        <h3>Free On-Site Assessment</h3>
+        <p>We inspect your roof thoroughly, take photos, and walk you through exactly what needs to be done. You get a detailed written quote before anything starts.</p>
+      </div>
+      <div class="step-box">
+        <div class="step-num">3</div>
+        <h3>We Get to Work</h3>
+        <p>Once you approve the quote, we schedule at your convenience. Most replacements are done in a single day. We clean up completely when we're finished.</p>
       </div>
     </div>
   </div>
@@ -1414,11 +1682,11 @@
         <div class="section-tag">About Us</div>
         <h2 class="section-title">Local Roofers You Can Trust</h2>
         <p>Optima Roofing &amp; Construction was built on one simple idea: homeowners deserve a roofing company that shows up when it says it will, does what it promises, and stands behind its work.</p>
-        <p>We're a family-run crew — not a franchise, not a call centre. When you call us, you speak to the people who'll be on your roof. We've been protecting homes across Toronto and the Greater Toronto Area for over 15 years, and every job we take gets the same level of care.</p>
-        <p>Our 25-year workmanship warranty backs every replacement. We carry full WSIB coverage and $5M liability insurance so you're protected from day one.</p>
+        <p>We're a family-run crew — not a franchise, not a call centre. When you call us, you speak to the people who'll be on your roof. We've been protecting homes across Toronto and the Greater Toronto Area since 2001, and every job we take gets the same level of care.</p>
+        <p>Our 10-year workmanship warranty backs every replacement. We carry full WSIB coverage and $5M liability insurance so you're protected from day one.</p>
         <div class="about-stats">
           <div class="stat">
-            <div class="number">15+</div>
+            <div class="number">25+</div>
             <div class="label">Years in Business</div>
           </div>
           <div class="stat">
@@ -1432,6 +1700,34 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ── SERVICE AREA ── -->
+<section class="section" id="service-area" style="background:var(--gray-bg);">
+  <div class="section-inner">
+    <div class="section-tag">Where We Work</div>
+    <h2 class="section-title">Proudly Serving Toronto &amp; the GTA</h2>
+    <p class="section-sub">We've completed roofing projects across every corner of the Greater Toronto Area and Durham Region since 2001.</p>
+    <div class="area-grid">
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Toronto</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>North York</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Scarborough</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Etobicoke</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Mississauga</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Brampton</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Markham</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Richmond Hill</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Vaughan</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Pickering</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Ajax</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Whitby</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Oshawa</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Thornhill</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Newmarket</div>
+      <div class="area-item"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Aurora</div>
+    </div>
+    <p style="margin-top:24px;font-size:14px;color:var(--text-muted);">Not on the list? <a href="tel:6473702476" style="color:var(--gold);font-weight:600;">Give us a call</a> — we cover a wide area and are happy to confirm your location.</p>
   </div>
 </section>
 
@@ -1491,7 +1787,7 @@
             <svg class="faq-chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
           </button>
           <div class="faq-answer">
-            <p>We back every full replacement with a 25-year workmanship warranty in addition to the manufacturer's product warranty (Owens Corning and CertainTeed both offer lifetime shingle warranties on qualifying products). All repairs carry a 2-year warranty.</p>
+            <p>We back every full replacement with a 10-year workmanship warranty, plus the manufacturer's product warranty on qualifying shingles. All repairs carry a 2-year warranty. Both warranties are transferable to the next owner if you sell your home.</p>
           </div>
         </div>
 
@@ -1535,7 +1831,7 @@
             </div>
             <div>
               <strong>(647) 370-2476</strong>
-              <span>Mon–Fri 7am–6pm, Sat 8am–2pm</span>
+              <span>Mon–Sun &nbsp;7am to Midnight</span>
             </div>
           </div>
           <div class="contact-row">
@@ -1594,21 +1890,53 @@
 
 <!-- ── FOOTER ── -->
 <footer>
-  <div class="footer-logo">
-    <img src="Logo-67.webp" alt="Optima Roofing &amp; Construction" loading="lazy" style="height:44px;width:auto;background:var(--white);border-radius:8px;padding:4px 8px;" />
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="Logo-67.webp" alt="Optima Roofing &amp; Construction" loading="lazy" style="height:44px;width:auto;background:var(--white);border-radius:8px;padding:4px 8px;" />
+      <p>Toronto's trusted roofers since 2001. Licensed, WSIB-insured, and warranty-backed on every job.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <div class="footer-col-links">
+        <a href="#services">Services</a>
+        <a href="#work">Projects</a>
+        <a href="#reviews">Testimonials</a>
+        <a href="#why-us">Why Choose Us</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Get In Touch</h4>
+      <div class="footer-contact-list">
+        <div class="footer-contact-row">
+          <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          <a href="tel:6473702476">(647) 370-2476</a>
+        </div>
+        <div class="footer-contact-row">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <a href="mailto:info@optimaroofing.ca">info@optimaroofing.ca</a>
+        </div>
+        <div class="footer-contact-row">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Mon–Sun &nbsp;7am to Midnight</span>
+        </div>
+        <div class="footer-contact-row">
+          <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Greater Toronto Area &amp; Durham Region</span>
+        </div>
+      </div>
+      <a href="#contact" class="btn-footer-cta">Get Free Estimate</a>
+    </div>
   </div>
-
-  <div class="footer-links">
-    <a href="#work">Our Work</a>
-    <a href="#reviews">Reviews</a>
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#faq">FAQ</a>
-    <a href="#contact">Contact</a>
-  </div>
-
-  <div class="footer-copy">
-    &copy; 2026 Optima Roofing &amp; Construction. All rights reserved. &nbsp;|&nbsp; Greater Toronto Area &amp; Durham Region &nbsp;|&nbsp; WSIB Insured &nbsp;|&nbsp; Licensed &amp; Bonded
+  <div class="footer-bottom">
+    <p>&copy; 2026 Optima Roofing &amp; Construction. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">WSIB Insured</a>
+      <a href="#">Licensed &amp; Bonded</a>
+    </div>
   </div>
 </footer>
 
@@ -1774,7 +2102,7 @@
   }
 
   _ric(function() {
-  var navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+  var navLinks = document.querySelectorAll('.nav-links a[href^="#"], .nav-actions a[href^="#"]');
   var sections = document.querySelectorAll('section[id]');
 
   window.addEventListener('scroll', () => {
