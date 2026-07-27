@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You — We’ll Be In Touch Shortly | Optima Roofing</title>
+  <meta name="description" content="Thanks for reaching out to Optima Roofing & Construction. We’ll be in touch shortly — most homeowners hear back within the hour, 7am to midnight." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://landing.optimaroofing.ca/thank-you/" />
+
+  <!-- Google tag (gtag.js) — Ads + GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{AW_CONVERSION_ID}}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '{{AW_CONVERSION_ID}}');
+    gtag('config', '{{GA4_MEASUREMENT_ID}}');
+
+    /* FORM CONVERSION — fires once on the thank-you page load.
+       Guarded so it never fires while the placeholder tokens are still in place. */
+    (function () {
+      var ADS_ID = '{{AW_CONVERSION_ID}}';
+      var FORM_LABEL = '{{FORM_LABEL}}';
+      if (/CONVERSION_ID|_LABEL/.test(ADS_ID + FORM_LABEL)) return; // not configured yet
+      var params = new URLSearchParams(location.search);
+      var src = params.get('src') || 'site';
+      gtag('event', 'conversion', {
+        send_to: ADS_ID + '/' + FORM_LABEL,
+        value: 1.0,
+        currency: 'CAD'
+      });
+      gtag('event', 'generate_lead', { source: src });
+    })();
+  </script>
+
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin.woff2" crossorigin />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body data-page="thank-you">
+  <a href="#main" class="skip-link">Skip to content</a>
+
+  <nav>
+    <a href="/" class="logo" aria-label="Optima Roofing home">
+      <img src="/Logo-67.webp" alt="Optima Roofing &amp; Construction" class="logo-img" width="180" height="52" />
+    </a>
+    <div class="nav-actions">
+      <a href="tel:6473702476" class="btn-call js-phone">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+        <span class="js-phone-text">(647) 370-2476</span>
+      </a>
+    </div>
+  </nav>
+
+  <main id="main" class="ty-wrap">
+    <svg class="ty-check" viewBox="0 0 52 52" role="img" aria-label="Success">
+      <circle cx="26" cy="26" r="24" />
+      <path d="M15 27l7 7 15-16" />
+    </svg>
+    <h1>Thank you — we’ve got your details.</h1>
+    <p>A member of the Optima team will be in touch shortly. Most homeowners hear back <strong>within the hour</strong>, 7&nbsp;days a week from 7am to midnight.</p>
+    <p style="margin-top:-12px;">Can’t wait? Call us directly and we’ll take it from here.</p>
+    <a href="tel:6473702476" class="ty-call js-phone">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      <span class="js-phone-text">Call (647) 370-2476</span>
+    </a>
+  </main>
+
+  <script>window.OPTIMA_ADS = { id: '{{AW_CONVERSION_ID}}', callLabel: '{{CALL_LABEL}}' };</script>
+  <script src="/main.js" defer></script>
+</body>
+</html>
