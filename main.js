@@ -48,8 +48,13 @@
      2. FORMS — validation, phone/postal formatting,
         photo compression, submit with tracking redirect
      ───────────────────────────────────────────── */
+  function tenDigits(v) {
+    var d = v.replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1); // tolerate leading country code
+    return d.slice(0, 10);
+  }
   function formatPhone(v) {
-    var d = v.replace(/\D/g, '').slice(0, 10);
+    var d = tenDigits(v);
     if (d.length === 0) return '';
     if (d.length < 4) return '(' + d;
     if (d.length < 7) return '(' + d.slice(0, 3) + ') ' + d.slice(3);
@@ -67,8 +72,7 @@
     var val = field.value.trim();
     if (field.hasAttribute('required') && !val) { setError(group, true); return false; }
     if (field.type === 'tel' && val) {
-      var digits = val.replace(/\D/g, '');
-      if (digits.length !== 10) { setError(group, true); return false; }
+      if (tenDigits(val).length !== 10) { setError(group, true); return false; }
     }
     if (field.dataset.validate === 'postal' && val) {
       if (!POSTAL_RE.test(val)) { setError(group, true); return false; }
@@ -112,18 +116,23 @@
         previews.innerHTML = '';
         files.forEach(function (file) {
           if (!/^image\//.test(file.type)) return;
+          // Immediate feedback while compression runs (Doherty Threshold).
+          var wrap = document.createElement('div');
+          wrap.className = 'file-preview loading';
+          wrap.innerHTML = '<span class="mini-spin" aria-hidden="true"></span>';
+          previews.appendChild(wrap);
+          var item = { name: file.name.replace(/\.\w+$/, '') + '.jpg', blob: null };
+          compressed.push(item);
           compressImage(file, function (blob, dataUrl) {
-            compressed.push({ name: file.name.replace(/\.\w+$/, '') + '.jpg', blob: blob });
-            var wrap = document.createElement('div');
-            wrap.className = 'file-preview';
+            item.blob = blob;
+            wrap.classList.remove('loading');
             wrap.innerHTML = '<img alt="Selected photo preview" src="' + dataUrl + '">' +
               '<button type="button" aria-label="Remove photo">&times;</button>';
             wrap.querySelector('button').addEventListener('click', function () {
-              var i = Array.prototype.indexOf.call(previews.children, wrap);
+              var i = compressed.indexOf(item);
               if (i > -1) compressed.splice(i, 1);
               wrap.remove();
             });
-            previews.appendChild(wrap);
           });
         });
       });
@@ -184,8 +193,9 @@
       // replace raw files with compressed versions
       if (fileInput) {
         data.delete(fileInput.name);
-        compressed.forEach(function (c) { data.append(fileInput.name, c.blob, c.name); });
-        if (compressed.length) fireConversion(ADS.photoLabel); // micro-conversion
+        var attached = 0;
+        compressed.forEach(function (c) { if (c.blob) { data.append(fileInput.name, c.blob, c.name); attached++; } });
+        if (attached) fireConversion(ADS.photoLabel); // micro-conversion
       }
       // put postal code into the email subject so urgency is visible at a glance
       var postal = (form.querySelector('[data-validate="postal"]') || {}).value;
@@ -213,6 +223,24 @@
       }
     });
   });
+
+  /* ─────────────────────────────────────────────
+     2b. MOBILE NAV MENU (Jakob's Law + Fitts's Law)
+     ───────────────────────────────────────────── */
+  (function mobileNav() {
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.getElementById('primary-nav');
+    if (!toggle || !menu) return;
+    function close() { menu.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+    toggle.addEventListener('click', function () {
+      var open = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', close); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && menu.classList.contains('open')) { close(); toggle.focus(); }
+    });
+  })();
 
   /* ─────────────────────────────────────────────
      3. FAQ ACCORDION

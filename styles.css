@@ -833,3 +833,74 @@ footer { background: var(--navy-dark); color: rgba(255,255,255,0.6); padding: 48
   .hero-copy h1 { font-size: 30px; }
   .btn-giant-call { font-size: 20px; }
 }
+
+/* ============================================================
+   UX PASS — mobile nav, tap targets, upload feedback, thank-you
+   ============================================================ */
+
+/* Hamburger toggle — hidden on desktop (Jakob's Law: mobile menu) */
+.nav-toggle {
+  display: none;
+  width: 44px; height: 44px;
+  align-items: center; justify-content: center;
+  background: transparent; border: 1.5px solid var(--gray-mid);
+  border-radius: 8px; cursor: pointer; padding: 0;
+}
+.nav-toggle svg { width: 22px; height: 22px; stroke: var(--navy); stroke-width: 2; fill: none; }
+
+/* Photo upload: immediate processing feedback (Doherty Threshold) */
+.file-preview.loading { display: flex; align-items: center; justify-content: center; background: var(--gray-bg); }
+.file-preview.loading .mini-spin {
+  width: 20px; height: 20px;
+  border: 2px solid var(--gray-mid); border-top-color: var(--gold);
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+}
+
+/* Thank-you: "what happens next" (Peak-End Rule) */
+.ty-next {
+  display: flex; flex-wrap: wrap; gap: 12px;
+  justify-content: center; margin: 8px auto 28px; max-width: 640px;
+}
+.ty-next li {
+  list-style: none; flex: 1 1 170px;
+  background: var(--gray-bg); border-radius: 10px;
+  padding: 16px 18px; text-align: left;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.ty-next .n {
+  width: 26px; height: 26px; flex-shrink: 0;
+  background: var(--navy); color: var(--white);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800;
+}
+.ty-next h3 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+.ty-next p { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+@media (max-width: 960px) {
+  /* Mobile navigation menu (Jakob's Law + Fitts's Law) */
+  .nav-toggle { display: inline-flex; }
+  .nav-links {
+    display: none;
+    position: absolute; top: 72px; left: 0; right: 0;
+    flex-direction: column; gap: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--gray-mid);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+    padding: 8px 0;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    display: flex; align-items: center;
+    width: 100%; min-height: 48px;
+    padding: 12px 24px; border-bottom: none;
+    font-size: 16px;
+  }
+  .nav-links a:hover, .nav-links a.active { background: var(--gray-bg); border-bottom-color: transparent; }
+
+  /* Footer tap targets (Fitts's Law) */
+  .footer-col-links { gap: 4px; }
+  .footer-col-links a { min-height: 44px; }
+  .footer-bottom-links { gap: 8px 20px; }
+  .footer-bottom-links a { min-height: 40px; display: inline-flex; align-items: center; }
+}
